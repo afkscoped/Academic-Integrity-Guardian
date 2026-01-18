@@ -1,184 +1,162 @@
-
 import React, { useState } from 'react';
 import { User, UserRole } from '../types';
+import { motion } from 'framer-motion';
+import { ShieldCheck, ArrowRight, Loader2, Sparkles, Building2 } from 'lucide-react';
 
 interface LoginProps {
-  onLogin: (userData: User) => void;
+  onLogin: (user: User) => void;
 }
 
 const Login: React.FC<LoginProps> = ({ onLogin }) => {
   const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
   const [name, setName] = useState('');
-  const [university, setUniversity] = useState('');
   const [role, setRole] = useState<UserRole>('STUDENT');
+  const [university, _setUniversity] = useState('Global Tech University');
   const [isLoading, setIsLoading] = useState(false);
-
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!email || !password || !name || !university) {
-      alert("Please fill in all fields (Name, University, Email, Password).");
-      return;
-    }
+    if (!email || !name) return;
 
     setIsLoading(true);
-
-    // Simulate network delay for institutional SSO/Auth verification
     setTimeout(() => {
       setIsLoading(false);
-
       const userData: User = {
         id: `u-${Math.random().toString(36).substr(2, 9)}`,
         name: name,
         email: email,
         role: role,
-
         institution: university
       };
-
       onLogin(userData);
     }, 1500);
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 flex items-center justify-center p-4">
-      <div className="max-w-md w-full">
+    <div className="min-h-screen flex items-center justify-center p-6 relative overflow-hidden" style={{ background: 'var(--bg-primary)' }}>
+      {/* Ambient background effects */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute top-[-20%] left-[-10%] w-[60%] h-[60%] bg-accent-primary/10 rounded-full blur-[150px]" />
+        <div className="absolute bottom-[-20%] right-[-10%] w-[60%] h-[60%] bg-accent-secondary/10 rounded-full blur-[150px]" />
+      </div>
+
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="max-w-md w-full relative z-10"
+      >
         {/* Branding */}
-        <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-16 h-16 bg-indigo-600 rounded-2xl text-white text-3xl shadow-xl mb-4">
-            <i className="fa-solid fa-shield-halved"></i>
-          </div>
-          <h1 className="text-3xl font-black text-slate-800 tracking-tight">Guardian AI</h1>
-          <p className="text-slate-500 mt-2 font-medium">Academic Integrity & Data Sovereignty</p>
+        <div className="text-center mb-10">
+          <motion.div
+            initial={{ scale: 0.8 }}
+            animate={{ scale: 1 }}
+            className="inline-flex p-4 rounded-3xl bg-accent-gradient shadow-2xl mb-6 shadow-accent-primary/20"
+          >
+            <ShieldCheck size={40} className="text-white" />
+          </motion.div>
+          <h1 className="text-4xl font-black tracking-tighter text-text-primary">
+            GUARDIAN <span className="text-accent-primary">AI</span>
+          </h1>
+          <p className="text-text-tertiary mt-2 font-bold uppercase tracking-[0.2em] text-[10px]">
+            Academic Integrity & Data Sovereignty
+          </p>
         </div>
 
         {/* Login Card */}
-        <div className="bg-white rounded-3xl shadow-xl border border-slate-100 overflow-hidden slide-up">
-          <div className="p-8">
-            <h2 className="text-xl font-bold text-slate-800 mb-6 text-center">Institutional Portal</h2>
+        <div className="glass rounded-[2.5rem] p-10 border shadow-2xl overflow-hidden relative group" style={{ borderColor: 'var(--border-strong)', background: 'var(--bg-elevated)' }}>
+          <div className="absolute top-0 left-0 w-full h-1 bg-accent-gradient opacity-0 group-hover:opacity-100 transition-opacity" />
 
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <div>
-                <label className="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1.5 ml-1">Full Name</label>
-                <div className="relative">
-                  <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-sm">
-                    <i className="fa-solid fa-user"></i>
-                  </span>
-                  <input
-                    type="text"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    placeholder="Enter your full name"
-                    className="w-full bg-slate-50 border border-slate-200 rounded-xl py-3 pl-11 pr-4 text-sm text-slate-700 focus:bg-white focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 outline-none transition-all"
-                  />
-                </div>
+          <h2 className="text-xl font-black text-text-primary mb-8 text-center tracking-tight">Institutional Portal</h2>
+
+          <form onSubmit={handleSubmit} className="space-y-5">
+            <div className="space-y-2">
+              <label className="text-[10px] font-black text-text-tertiary uppercase tracking-widest ml-1">Full Name</label>
+              <div className="relative">
+                <input
+                  type="text"
+                  required
+                  className="input-premium pl-4"
+                  placeholder="John Doe"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                />
               </div>
+            </div>
 
+            <div className="space-y-2">
+              <label className="text-[10px] font-black text-text-tertiary uppercase tracking-widest ml-1">Institutional Email</label>
+              <input
+                type="email"
+                required
+                className="input-premium pl-4"
+                placeholder="j.doe@university.edu"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+            </div>
 
-              <div>
-                <label className="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1.5 ml-1">University Name</label>
-                <div className="relative">
-                  <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-sm">
-                    <i className="fa-solid fa-building-columns"></i>
-                  </span>
-                  <input
-                    type="text"
-                    value={university}
-                    onChange={(e) => setUniversity(e.target.value)}
-                    placeholder="Enter your university name"
-                    className="w-full bg-slate-50 border border-slate-200 rounded-xl py-3 pl-11 pr-4 text-sm text-slate-700 focus:bg-white focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 outline-none transition-all"
-                  />
-                </div>
-              </div>
+            <div className="grid grid-cols-2 gap-4 pt-2">
+              <button
+                type="button"
+                onClick={() => setRole('STUDENT')}
+                className={`py-3 rounded-xl text-xs font-black uppercase tracking-widest transition-all border ${role === 'STUDENT'
+                    ? 'bg-accent-primary text-white border-accent-primary shadow-lg shadow-accent-primary/20'
+                    : 'glass text-text-tertiary border-white/10 hover:border-white/20'
+                  }`}
+              >
+                Student
+              </button>
+              <button
+                type="button"
+                onClick={() => setRole('FACULTY')}
+                className={`py-3 rounded-xl text-xs font-black uppercase tracking-widest transition-all border ${role === 'FACULTY'
+                    ? 'bg-accent-primary text-white border-accent-primary shadow-lg shadow-accent-primary/20'
+                    : 'glass text-text-tertiary border-white/10 hover:border-white/20'
+                  }`}
+              >
+                Faculty
+              </button>
+            </div>
 
-              <div>
-                <label className="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1.5 ml-1">University Email</label>
-                <div className="relative">
-                  <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-sm">
-                    <i className="fa-solid fa-envelope"></i>
-                  </span>
-                  <input
-                    type="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    placeholder="name@university.edu"
-                    className="w-full bg-slate-50 border border-slate-200 rounded-xl py-3 pl-11 pr-4 text-sm text-slate-700 focus:bg-white focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 outline-none transition-all"
-                  />
-                </div>
-              </div>
-
-              <div>
-                <label className="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1.5 ml-1">Password</label>
-                <div className="relative">
-                  <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-sm">
-                    <i className="fa-solid fa-lock"></i>
-                  </span>
-                  <input
-                    type="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    placeholder="••••••••"
-                    className="w-full bg-slate-50 border border-slate-200 rounded-xl py-3 pl-11 pr-4 text-sm text-slate-700 focus:bg-white focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 outline-none transition-all"
-                  />
-                </div>
-              </div>
-
-              <div>
-                <label className="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1.5 ml-1">Account Type</label>
-                <div className="grid grid-cols-2 gap-3">
-                  <button
-                    type="button"
-                    onClick={() => setRole('STUDENT')}
-                    className={`py-3 rounded-xl text-xs font-bold border-2 transition-all ${role === 'STUDENT' ? 'bg-indigo-50 border-indigo-600 text-indigo-700' : 'bg-white border-slate-100 text-slate-500 hover:border-slate-200'}`}
-                  >
-                    <i className="fa-solid fa-graduation-cap mr-2"></i>
-                    Student
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => setRole('FACULTY')}
-                    className={`py-3 rounded-xl text-xs font-bold border-2 transition-all ${role === 'FACULTY' ? 'bg-indigo-50 border-indigo-600 text-indigo-700' : 'bg-white border-slate-100 text-slate-500 hover:border-slate-200'}`}
-                  >
-                    <i className="fa-solid fa-chalkboard-user mr-2"></i>
-                    Faculty
-                  </button>
-                </div>
-              </div>
-
+            <div className="pt-6">
               <button
                 type="submit"
                 disabled={isLoading}
-                className="w-full bg-indigo-600 text-white py-4 rounded-xl font-black uppercase tracking-widest hover:bg-indigo-700 active:scale-95 transition-all shadow-lg shadow-indigo-200 flex items-center justify-center gap-3 disabled:opacity-70 disabled:scale-100 mt-4"
+                className="w-full bg-accent-gradient py-4 rounded-2xl text-white font-black uppercase tracking-[0.2em] text-xs flex items-center justify-center gap-3 hover:scale-[1.02] active:scale-[0.98] transition-all shadow-xl shadow-accent-primary/20 disabled:opacity-70 disabled:scale-100"
               >
                 {isLoading ? (
                   <>
-                    <i className="fa-solid fa-circle-notch animate-spin"></i>
-                    Verifying Identity...
+                    <Loader2 size={18} className="animate-spin" />
+                    Verifying Node...
                   </>
                 ) : (
                   <>
                     Secure Sign In
-                    <i className="fa-solid fa-arrow-right"></i>
+                    <ArrowRight size={18} />
                   </>
                 )}
               </button>
-            </form>
-          </div>
+            </div>
+          </form>
 
-          <div className="bg-slate-50 px-8 py-4 border-t border-slate-100">
-            <p className="text-[10px] text-center text-slate-400 font-medium leading-relaxed uppercase tracking-tighter">
-              Private On-Premise Authentication Node<br />
-              Global Tech University Integrity Network
-            </p>
+          <div className="mt-8 pt-8 border-t flex items-center justify-center gap-2" style={{ borderColor: 'var(--border-subtle)' }}>
+            <Building2 size={14} className="text-text-tertiary" />
+            <span className="text-[10px] font-bold text-text-tertiary uppercase tracking-widest">{university}</span>
           </div>
         </div>
-      </div >
-      <style>{`
-        .slide-up { animation: slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
-        @keyframes slideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
-      `}</style>
-    </div >
+
+        <div className="mt-8 flex justify-center gap-6 text-[10px] font-black text-text-tertiary uppercase tracking-[0.2em]">
+          <div className="flex items-center gap-2">
+            <Sparkles size={12} className="text-accent-primary" />
+            <span>AES-256 Encrypted</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <Sparkles size={12} className="text-accent-secondary" />
+            <span>ZKP Verified</span>
+          </div>
+        </div>
+      </motion.div>
+    </div>
   );
 };
 

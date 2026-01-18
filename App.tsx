@@ -97,7 +97,13 @@ const App: React.FC = () => {
   }
 
   return (
-    <div className="flex min-h-screen" style={{ background: 'var(--bg-primary)' }}>
+    <div className="flex min-h-screen relative overflow-hidden" style={{ background: 'var(--bg-primary)' }}>
+      {/* Background Ambient Glows */}
+      <div className="fixed inset-0 pointer-events-none">
+        <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-accent-primary/5 rounded-full blur-[120px]" />
+        <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-accent-secondary/5 rounded-full blur-[120px]" />
+      </div>
+
       <Sidebar
         user={user}
         activeView={activeView}
@@ -105,72 +111,45 @@ const App: React.FC = () => {
         onToggleRole={toggleRole}
       />
 
-      <main className="flex-1 relative animate-fade-in-up">
+      <main className="flex-1 relative z-10 transition-all duration-700">
         {/* Premium Header with Glassmorphism */}
-        <header className="sticky top-0 z-40 glass backdrop-blur-xl border-b" style={{ borderColor: 'var(--border-subtle)' }}>
-          <div className="px-8 py-6 flex justify-between items-center">
-            <div>
-              <h1 className="text-2xl font-bold" style={{
-                background: 'var(--accent-gradient)',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                letterSpacing: '-0.02em'
-              }}>
-                {activeView === 'HOME' ? 'Dashboard' :
-                  activeView === 'DRAFT' ? 'Draft Analysis' :
-                    activeView === 'VERIFY' ? 'Verification' :
-                      activeView === 'LEDGER' ? 'Audit Ledger' : 'Privacy Control'}
-              </h1>
-              <p className="text-sm mt-1" style={{ color: 'var(--text-secondary)' }}>
-                {user.role === 'STUDENT' ? 'Secure your academic integrity' : 'Review submissions with AI'}
-              </p>
-            </div>
-
+        <header className="main-header sticky top-0 z-40 glass backdrop-blur-xl border-b transition-all duration-700" style={{ borderColor: 'var(--border-subtle)' }}>
+          <div className="max-w-7xl mx-auto px-8 h-20 flex items-center justify-between">
             <div className="flex items-center gap-4">
-              {/* User Profile Pill */}
-              <div className="glass-hover px-4 py-2 rounded-full flex items-center gap-3" style={{
-                background: 'var(--surface-glass)',
-                border: '1px solid var(--border-subtle)'
-              }}>
-                <div className="flex flex-col items-end">
-                  <span className="text-sm font-semibold" style={{ color: 'var(--text-primary)' }}>
-                    {user.name}
-                  </span>
-                  <span className="text-xs" style={{ color: 'var(--text-tertiary)' }}>
-                    {user.institution}
-                  </span>
-                </div>
-                <div className="w-10 h-10 rounded-full flex items-center justify-center font-bold text-white relative overflow-hidden">
-                  <div style={{
-                    position: 'absolute',
-                    inset: 0,
-                    background: 'var(--accent-gradient)'
-                  }}></div>
-                  <span className="relative z-10">{user.name.charAt(0)}</span>
+              <div className="h-10 w-1 px-3 py-1 bg-accent-gradient rounded-full" />
+              <div>
+                <h2 className="text-xl font-black tracking-tight text-text-primary">
+                  {activeView === 'HOME' ? 'Institutional Dashboard' :
+                    activeView === 'DRAFT' ? 'Draft Analysis' :
+                      activeView === 'VERIFY' ? 'Verification Portal' :
+                        activeView === 'LEDGER' ? 'Audit Ledger' : 'Control Panel'}
+                </h2>
+                <div className="flex items-center gap-2">
+                  <span className="w-1.5 h-1.5 rounded-full bg-success animate-pulse"></span>
+                  <p className="text-[10px] font-bold text-text-tertiary uppercase tracking-widest">Secured by Guardian AI Neural Network</p>
                 </div>
               </div>
+            </div>
 
-              {/* Logout Button */}
-              <button
-                onClick={handleLogout}
-                className="w-10 h-10 rounded-lg glass-hover flex items-center justify-center group transition-all"
-                style={{
-                  background: 'var(--surface-glass)',
-                  border: '1px solid var(--border-subtle)'
-                }}
-                title="Sign Out"
-              >
-                <i className="fa-solid fa-arrow-right-from-bracket transition-colors" style={{
-                  color: 'var(--text-tertiary)',
-                  fontSize: '0.9rem'
-                }}></i>
+            <div className="flex items-center gap-6">
+              <div className="hidden md:flex flex-col text-right">
+                <span className="text-xs font-bold text-text-primary capitalize">{user.name}</span>
+                <span className="text-[10px] font-medium text-text-tertiary uppercase tracking-widest">{user.role}</span>
+              </div>
+              <div className="w-10 h-10 rounded-2xl bg-accent-gradient p-[1px]">
+                <div className="w-full h-full rounded-2xl bg-bg-secondary flex items-center justify-center font-bold text-accent-primary">
+                  {user.name.charAt(0).toUpperCase()}
+                </div>
+              </div>
+              <button onClick={handleLogout} className="p-2 rounded-xl hover:bg-error/10 text-text-tertiary hover:text-error transition-all" title="Sign Out">
+                <i className="fa-solid fa-right-from-bracket"></i>
               </button>
             </div>
           </div>
         </header>
 
         {/* Main Content Area */}
-        <div className="p-8">
+        <div className="p-8 max-w-7xl mx-auto min-h-[calc(100vh-80px)]">
           {activeView === 'HOME' && (
             user.role === 'STUDENT' ? (
               <StudentDashboard submissions={submissions} onViewDrafts={() => setActiveView('DRAFT')} />
