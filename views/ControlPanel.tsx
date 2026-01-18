@@ -40,8 +40,8 @@ const ControlPanel: React.FC<ControlPanelProps> = ({ user, submissions, accessLo
             key={tab.id}
             onClick={() => setActiveTab(tab.id as any)}
             className={`flex-1 min-w-[150px] py-4 px-6 rounded-2xl font-black text-xs uppercase tracking-[0.2em] transition-all flex items-center justify-center gap-3 relative overflow-hidden group ${activeTab === tab.id
-                ? 'text-white'
-                : 'text-text-tertiary hover:text-text-primary hover:bg-white/5'
+              ? 'text-white'
+              : 'text-text-tertiary hover:text-text-primary hover:bg-white/5'
               }`}
           >
             {activeTab === tab.id && (
@@ -63,7 +63,7 @@ const ControlPanel: React.FC<ControlPanelProps> = ({ user, submissions, accessLo
             initial={{ opacity: 0, scale: 0.98 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.98 }}
-            className="card-premium glass !p-0 overflow-hidden"
+            className="portal-card !p-0 overflow-hidden"
           >
             <div className="p-10 border-b flex justify-between items-center bg-white/[0.02]" style={{ borderColor: 'var(--border-subtle)' }}>
               <div>
@@ -145,8 +145,8 @@ const ControlPanel: React.FC<ControlPanelProps> = ({ user, submissions, accessLo
                               onClick={() => handleDeletionSubmit(sub.id, sub.title)}
                               disabled={isPending}
                               className={`px-4 py-2 text-[10px] font-black uppercase tracking-widest rounded-xl transition-all border ${isPending
-                                  ? 'bg-warning/10 text-warning border-warning/20 opacity-50'
-                                  : 'text-error border-error/20 bg-error/5 hover:bg-error hover:text-white shadow-lg shadow-error/10'}`}
+                                ? 'bg-warning/10 text-warning border-warning/20 opacity-50'
+                                : 'text-error border-error/20 bg-error/5 hover:bg-error hover:text-white shadow-lg shadow-error/10'}`}
                             >
                               {isPending ? 'Pending Audit' : 'Purge Vector'}
                             </button>

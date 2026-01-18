@@ -41,7 +41,7 @@ const VerificationPortal: React.FC<VerificationPortalProps> = ({ submissions, le
 
   return (
     <div className="max-w-4xl mx-auto space-y-10 animate-fade-in-up">
-      <div className="card-premium bg-accent-gradient !p-12 text-white text-center shadow-2xl relative overflow-hidden">
+      <div className="portal-card bg-accent-gradient !p-12 text-white text-center shadow-2xl relative overflow-hidden">
         <div className="absolute top-0 right-0 p-8 opacity-10 scale-150 rotate-12">
           <Fingerprint size={120} />
         </div>
@@ -56,7 +56,7 @@ const VerificationPortal: React.FC<VerificationPortalProps> = ({ submissions, le
             <textarea
               value={inputText}
               onChange={(e) => setInputText(e.target.value)}
-              className="w-full h-48 glass bg-white/10 border-white/20 rounded-3xl p-8 text-white placeholder-white/30 focus:bg-white/15 outline-none transition-all resize-none mb-8 font-serif leading-relaxed"
+              className="w-full h-48 neon-input bg-black/20 border-white/20 rounded-3xl p-8 text-white placeholder-white/50 focus:bg-black/30 outline-none transition-all resize-none mb-8 font-serif leading-relaxed"
               placeholder="Paste document content for cryptographic validation..."
             ></textarea>
             <motion.button
@@ -64,7 +64,7 @@ const VerificationPortal: React.FC<VerificationPortalProps> = ({ submissions, le
               whileTap={{ scale: 0.95 }}
               onClick={verifyContent}
               disabled={isVerifying || !inputText}
-              className="px-10 py-5 bg-white text-accent-primary rounded-2xl font-black text-xs uppercase tracking-[0.2em] shadow-2xl hover:bg-opacity-90 disabled:opacity-50 transition-all flex items-center gap-3 mx-auto"
+              className="px-10 py-5 bg-white text-accent-primary rounded-2xl font-black text-xs uppercase tracking-[0.2em] shadow-2xl hover:bg-opacity-90 disabled:opacity-50 transition-all flex items-center gap-3 mx-auto text-black"
             >
               {isVerifying ? <Loader2 size={18} className="animate-spin" /> : <ShieldCheck size={18} />}
               Run Secure Verification

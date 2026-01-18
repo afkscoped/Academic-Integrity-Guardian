@@ -23,7 +23,7 @@ const Sidebar: React.FC<SidebarProps> = ({ user, activeView, onViewChange, onTog
   }
 
   return (
-    <aside className="sidebar-container w-72 h-screen sticky top-0 flex flex-col glass border-r z-50 transition-all duration-700" style={{ borderColor: 'var(--border-subtle)', background: 'var(--bg-secondary)' }}>
+    <aside className="sidebar-container w-72 h-screen sticky top-0 flex flex-col bg-bg-panel/50 backdrop-blur-xl border-r z-50 transition-all duration-300" style={{ borderColor: 'var(--border-glow)' }}>
       <div className="p-8">
         <div className="flex items-center gap-4 text-accent-primary mb-12 group cursor-pointer">
           <div className="w-10 h-10 bg-accent-gradient rounded-xl flex items-center justify-center text-white shadow-lg shadow-accent-primary/20 group-hover:scale-110 transition-transform">

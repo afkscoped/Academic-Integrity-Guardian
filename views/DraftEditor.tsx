@@ -161,12 +161,11 @@ const DraftEditor: React.FC<DraftEditorProps> = ({ onSave }) => {
         {/* Toolbar */}
         <div className="flex justify-between items-center gap-4 flex-wrap">
           <div className="flex items-center gap-4">
-            <div className={`p-3 rounded-2xl glass border transition-all ${isZen ? 'hidden' : 'flex'}`} style={{ borderColor: 'var(--border-strong)' }}>
+            <div className={`transition-all ${isZen ? 'hidden' : 'flex'}`}>
               <input
                 type="text"
                 placeholder="Document Title"
-                className="bg-transparent font-bold text-lg outline-none min-w-[300px]"
-                style={{ color: 'var(--text-primary)' }}
+                className="neon-input bg-bg-panel/50 font-bold text-lg min-w-[300px]"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
               />
@@ -206,7 +205,7 @@ const DraftEditor: React.FC<DraftEditorProps> = ({ onSave }) => {
             <button
               onClick={runAnalysis}
               disabled={isAnalyzing || !content}
-              className="btn-premium btn-primary flex items-center gap-2 px-6"
+              className="neon-button flex items-center gap-2 px-6"
             >
               {isAnalyzing ? <Loader2 size={16} className="animate-spin" /> : <ShieldCheck size={16} />}
               <span className="uppercase tracking-widest">Run Analysis</span>
@@ -218,8 +217,7 @@ const DraftEditor: React.FC<DraftEditorProps> = ({ onSave }) => {
           {/* Main Editor Surface */}
           <div className={`${isZen && featureOptions.zenModeEnabled ? 'lg:col-span-12' : 'lg:col-span-8'} space-y-4`}>
             <div
-              className="relative glass rounded-[2rem] border animate-scale-in flex flex-col min-h-[650px] overflow-hidden"
-              style={{ borderColor: 'var(--border-strong)', background: 'var(--bg-elevated)' }}
+              className="relative portal-card rounded-[2rem] animate-scale-in flex flex-col min-h-[650px] overflow-hidden p-0"
             >
               {/* Internal Status Bar */}
               <div className="px-10 py-4 border-b flex justify-between items-center bg-white/5" style={{ borderColor: 'var(--border-subtle)' }}>

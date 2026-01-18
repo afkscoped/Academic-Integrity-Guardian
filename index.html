@@ -32,11 +32,13 @@
   <script>
     (function () {
       const savedTheme = localStorage.getItem('theme') || 'dark';
-      document.documentElement.classList.add(savedTheme);
-      if (savedTheme === 'dark') {
-        document.documentElement.style.setProperty('color-scheme', 'dark');
-      } else {
-        document.documentElement.style.setProperty('color-scheme', 'light');
+      document.body.classList.add(savedTheme); // Apply to body to match useTheme.ts logic
+
+      // Always dark color scheme for this neon aesthetic
+      document.documentElement.style.setProperty('color-scheme', 'dark');
+
+      if (savedTheme === 'neon-alt') {
+        // Additional handling if needed for neon-alt specific root props
       }
     })();
   </script>

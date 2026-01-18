@@ -97,7 +97,7 @@ const App: React.FC = () => {
   }
 
   return (
-    <div className="flex min-h-screen relative overflow-hidden" style={{ background: 'var(--bg-primary)' }}>
+    <div className="flex min-h-screen relative overflow-hidden">
       {/* Background Ambient Glows */}
       <div className="fixed inset-0 pointer-events-none">
         <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-accent-primary/5 rounded-full blur-[120px]" />

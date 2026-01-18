@@ -38,7 +38,7 @@ const FacultyDashboard: React.FC<FacultyDashboardProps> = ({ submissions, ledger
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: i * 0.1 }}
-            className="card-premium glass flex flex-col items-start"
+            className="portal-card flex flex-col items-start"
           >
             <div className={`p-2 rounded-lg bg-white/5 border border-white/10 mb-3 ${stat.color}`}>
               <stat.icon size={18} />
@@ -51,7 +51,7 @@ const FacultyDashboard: React.FC<FacultyDashboardProps> = ({ submissions, ledger
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* Registry Table */}
-        <div className="lg:col-span-2 card-premium glass !p-0 overflow-hidden flex flex-col">
+        <div className="lg:col-span-2 portal-card !p-0 overflow-hidden flex flex-col">
           <div className="p-6 border-b flex justify-between items-center" style={{ borderColor: 'var(--border-subtle)' }}>
             <div>
               <h3 className="text-sm font-black uppercase tracking-widest text-text-primary">Submission Registry</h3>

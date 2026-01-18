@@ -25,7 +25,7 @@ const StudentDashboard: React.FC<StudentDashboardProps> = ({ submissions, onView
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <motion.div
           whileHover={{ y: -5 }}
-          className="card-premium glass border-accent-primary/20"
+          className="portal-card border-accent-primary/20"
         >
           <div className="flex justify-between items-start mb-4">
             <div className="p-3 rounded-2xl bg-accent-primary/10 text-accent-primary border border-accent-primary/20">
@@ -42,7 +42,7 @@ const StudentDashboard: React.FC<StudentDashboardProps> = ({ submissions, onView
 
         <motion.div
           whileHover={{ y: -5 }}
-          className="card-premium glass border-accent-secondary/20"
+          className="portal-card border-accent-secondary/20"
         >
           <div className="flex justify-between items-start mb-4">
             <div className="p-3 rounded-2xl bg-accent-secondary/10 text-accent-secondary border border-accent-secondary/20">
@@ -76,7 +76,7 @@ const StudentDashboard: React.FC<StudentDashboardProps> = ({ submissions, onView
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         {/* Chart View */}
-        <div className="card-premium glass">
+        <div className="portal-card">
           <div className="flex justify-between items-center mb-10">
             <div>
               <h3 className="text-sm font-black uppercase tracking-widest text-text-primary">Integrity Progress</h3>
@@ -140,8 +140,8 @@ const StudentDashboard: React.FC<StudentDashboardProps> = ({ submissions, onView
               >
                 <div className="flex items-center gap-4">
                   <div className={`w-10 h-10 rounded-xl flex items-center justify-center border transition-all ${sub.similarityScore < 20
-                      ? 'bg-success/10 text-success border-success/20'
-                      : 'bg-error/10 text-error border-error/20'
+                    ? 'bg-success/10 text-success border-success/20'
+                    : 'bg-error/10 text-error border-error/20'
                     }`}>
                     <FileText size={18} />
                   </div>
